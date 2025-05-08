@@ -1,10 +1,38 @@
 @import "tailwindcss";
 
 @layer components{
-    .paneles-laterales{
-        @apply row-start-2 flex flex-col items-center justify-start w-full sm:w-full bg-[#3A3A55] text-white h-full max-h-[calc(100vh-150px)] overflow-y-auto gap-2
+    :root {
+        --color-panel-ui: #2A2A40;
     }
-    .skill{
-        
+    .color-panel-ui {
+        background-color: var(--color-panel-ui);
+    }
+    .paneles-laterales{
+        @apply row-start-2 flex flex-col items-center justify-start w-full sm:w-full bg-[#3A3A55] text-white h-full max-h-[calc(100vh-150px)] overflow-y-auto gap-2 z-[1000]
+    }
+    .bg-panel {
+        @apply bg-[#2A2A40];
+    }
+    .panel-ui{
+        @apply col-start-2 col-span-3 row-start-3 flex flex-row items-center justify-center h-full text-white;
+        background-color: var(--color-panel-ui);
+    }
+    .panel-central{
+        @apply col-start-2 col-span-3 row-start-2 flex items-center justify-center bg-[#2E2E3E] text-white
+    }
+    .panel-info{
+        @apply relative col-span-5 flex flex-row justify-center items-center h-full gap-4 bg-[#2A2A40] text-white z-10
+    }
+    .skill-active{
+        @apply bg-[rgba(95,201,174,0.47)] text-white select-none p-3 rounded-lg w-full flex flex-col justify-center items-center cursor-pointer
+    }
+    .skill-inactive{
+        @apply bg-[rgba(97,121,114,0.47)] text-white select-none p-3 rounded-lg w-full flex flex-col justify-center items-center cursor-pointer
+    }
+    .skill-bloqued{
+        @apply bg-[rgba(28,29,29,0.47)] text-white select-none p-3 rounded-lg w-full flex flex-col justify-center items-center cursor-pointer
+    }
+    .quest{
+        @apply bg-[rgba(117,122,65,0.47)] text-white select-none p-3 rounded-lg w-full flex flex-col justify-center items-center
     }
 }
