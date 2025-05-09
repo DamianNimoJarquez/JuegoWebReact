@@ -32,6 +32,7 @@ const SkillCard = ({skill, onShowTooltip, onHideTooltip, onClick}: SkillCardProp
       const handleMouseLeave = () => {
         onHideTooltip();
       };
+      
     return ( 
         <>
         <div key={skill.id} className={ `skill-${skill.state} group relative`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={onClick}>

@@ -24,7 +24,7 @@ export class Player{
         const changedSkill = this.skills.map((skill) =>{
             if(skill.id !== id) return skill;
             if(skill.state === 'bloqued') return skill;
-            if(skill.state === 'active' && numSkillActive >= this.limiteSkillActivas) return skill;
+            if(skill.state === 'inactive' && numSkillActive >= this.limiteSkillActivas) return skill;
             return new Skill(skill.id,skill.name, skill.description, skill.shortDesc, skill.type, skill.requirements, skill.state === 'active' ? 'inactive' : 'active');
         });
         return new Player(this.name, {...this.atributos}, this.limiteSkillActivas,changedSkill,this.quests,this.exp,this.expLvlUp)
@@ -34,13 +34,8 @@ export class Player{
         const changedSkill = this.skills.map((skill) =>{
             let newState = skill.state;
 
-            if (skill.state === 'bloqued' && skill.unLock(this.atributos)){
-                console.log("Desbloquea");
+            if (skill.state === 'bloqued' && skill.unLock(this.atributos))
                 newState = 'inactive';
-            }
-            else{
-                console.log("No desbloquea: ", skill.unLock(this.atributos));
-            }
             return new Skill(skill.id,skill.name, skill.description, skill.shortDesc, skill.type, skill.requirements, newState);
         });
         return new Player(this.name, {...this.atributos}, this.limiteSkillActivas,changedSkill,this.quests,this.exp,this.expLvlUp)

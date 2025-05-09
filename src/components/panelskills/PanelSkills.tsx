@@ -9,19 +9,26 @@ interface PanelSkillsProps{
 }
 
 const PanelSkills = ({skills, onShowTooltip, onHideTooltip, onToggleSkill}:PanelSkillsProps) => {
+    const activeSkills = skills.filter(skill => skill.state === 'active');
+    const otherSkills = skills.filter(skill => skill.state !== 'active');
     return (  
         <>
         <div className="paneles-laterales relative z-50" style={{ direction: 'rtl' }}>
             <div style={{ direction: 'ltr' }} className="flex flex-col w-full items-center justify-start gap-4 p-1">
-                <div className="flex-none">Habilidades:</div>
-                {/* <div className="h-[50px]">elem 1</div> */}
-                {skills.length === 0 ? (
-                    <div className="text-gray-400">No tienes habilidades aún</div>
-                    ):(
-                        skills.map(skill =>(
-                            <SkillCard key={skill.id} skill={skill} onShowTooltip={onShowTooltip} onHideTooltip={onHideTooltip} onClick={() => onToggleSkill(skill.id)}/>
-                        ))
-                    )}
+                <div className="sticky top-0 z-20 bg-[#0f0f0f] w-full py-3 shadow-md text-center">
+                    <div className="sticky z-10 flex justify-center">Habilidades:</div>
+                </div>    
+                {activeSkills.length > 0 && (
+                    <div className="sticky top-[48px] z-10 bg-[#0f0f0f] w-full py-2 shadow-md flex flex-col gap-4">
+                        {activeSkills.map(skill =>(
+                            <SkillCard key={skill.id} skill={skill} onShowTooltip={onShowTooltip} onHideTooltip={onHideTooltip} onClick={()=> onToggleSkill(skill.id)} />
+                        ))}
+                    </div>
+                )}
+                {otherSkills.map(skill=>(
+                    <SkillCard key={skill.id} skill={skill} onShowTooltip={onShowTooltip} onHideTooltip={onHideTooltip} onClick={()=> onToggleSkill(skill.id)} />
+                ))}
+
             {Array.from({length: 100}).map((_,i)=>(
                 <div key={i} className="h-[50px]">elem {i}</div>
             ))}
