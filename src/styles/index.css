@@ -32,7 +32,10 @@
     .skill-bloqued{
         @apply bg-[rgba(28,29,29,0.47)] text-white select-none p-3 rounded-lg w-full flex flex-col justify-center items-center cursor-pointer
     }
-    .quest{
-        @apply bg-[rgba(117,122,65,0.47)] text-white select-none p-3 rounded-lg w-full flex flex-col justify-center items-center
+    .quest-main{
+        @apply bg-[rgba(75,131,89,0.71)] text-white select-none p-3 rounded-lg w-full flex flex-col justify-center items-center
+    }
+    .quest-side{
+        @apply bg-[rgba(164,194,110,0.71)] text-white select-none p-3 rounded-lg w-full flex flex-col justify-center items-center
     }
 }
