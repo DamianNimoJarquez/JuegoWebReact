@@ -18,7 +18,7 @@ export const quest1 = new Quest(
 export const quest2 = new Quest(
     'q2', 'Recolectar Pociones Rojas', 'Consigue 5 pociones de salud roja', 'Reúne pociones rojas',
   'side', requisitosBase,
-  [new QuestStep('Recolectar 5 pociones', new TargetObjective('pocionrojaId',5,'collection'))],
+  [new QuestStep('Recolectar 5 pociones', new TargetObjective('pocion_salud',5,'collection'))],
   {xp: 10, coin: 5}
 )
 //Quest 3 matar objetivo
@@ -43,20 +43,23 @@ export const quest5 = new Quest(
     'q5', 'Miscelánea de tareas', 'Recoge 5 pociones rojas y elimina 6 goblins', 'Pociones y goblins',
   'main', requisitosBase,
   [ new QuestStep('Completa ambas tareas', new CompositeObjective([
-      new TargetObjective('pocion_roja', 5, 'collection'),
+      new TargetObjective('pocion_salud', 5, 'collection'),
       new TargetObjective('goblin', 6, 'kill')
   ])) ],
   { xp: 50, coin: 25 }
 );
 //quest 6 mision con 10 pasos
 export const quest6 = new Quest(
-    'q6', 'Desafío del Aventura', 'Serie de tareas variadas para probar al héroe', '10 desafíos',
+    'q6', 'Desafío del Aventura', `Tras cruzar el desfiladero de los ecos, el grupo se encuentra con las ruinas de una civilización olvidada, oculta entre la niebla perpetua y los susurros de antiguos espíritus que aún deambulan entre los escombros. Las paredes derruidas cuentan historias de un imperio que desafió a los dioses, y en sus grietas aún laten fragmentos de la magia prohibida que provocó su caída. Tu misión es explorar los restos, descifrar los grabados ocultos y encontrar el artefacto conocido como "El Núcleo Silente", una reliquia capaz de alterar el curso del destino. Sin embargo, los ecos del pasado no descansan, y cada paso entre las ruinas puede despertar la ira de quienes fueron sellados allí hace siglos.  
+Ten cuidado: el tiempo se comporta de forma extraña en este lugar. Algunas zonas parecen avanzar en ciclos de luz y oscuridad en cuestión de segundos, mientras que otras permanecen inmóviles como si estuvieran atrapadas en un instante eterno. Deberás resolver acertijos que cambian cada vez que fallas, enfrentarte a criaturas que existen fuera del flujo temporal y tomar decisiones morales con consecuencias imprevisibles.  
+Esta misión no solo pondrá a prueba tu fuerza y tu mente, sino también tu capacidad para distinguir entre lo que debe ser recordado y lo que es mejor dejar en el olvido.`
+, '10 desafíos',
   'main', requisitosBase,
   [
     new QuestStep('Habla con el anciano', new DialogueObjective('anciano')),
-    new QuestStep('Recoge 3 pociones rojas', new TargetObjective('pocion_roja', 3, 'collection')),
+    new QuestStep('Recoge 3 pociones rojas', new TargetObjective('pocion_salud', 3, 'collection')),
     new QuestStep('Derrota 2 slimes', new TargetObjective('slime', 2, 'kill')),
-    new QuestStep('Recoge 4 pociones azules', new TargetObjective('pocion_azul', 4, 'collection')),
+    new QuestStep('Recoge 4 pociones azules', new TargetObjective('pocion_mana', 4, 'collection')),
     new QuestStep('Habla con el herrero', new DialogueObjective('herrero')),
     new QuestStep('Derrota 3 goblins', new TargetObjective('goblin', 3, 'kill')),
     new QuestStep('Recoge 5 pociones verdes', new TargetObjective('pocion_verde', 5, 'collection')),

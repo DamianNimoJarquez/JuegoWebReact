@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import { Player } from "../components/models/player";
+import { Item } from "../components/models/items/item";
 
 
 export function usePlayer(inicial: Player){
@@ -9,5 +10,9 @@ export function usePlayer(inicial: Player){
         setJugador(prev => prev.toggleSkills(skillId));
     },[])
 
-    return {jugador, onToggleSkill};
+    const obtainItem = useCallback((item: Item, qty: number) =>{
+        setJugador(prev => prev.obtainItem(item, qty));
+    },[])
+
+    return {jugador, onToggleSkill, obtainItem};
 }

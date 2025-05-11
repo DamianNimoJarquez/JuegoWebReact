@@ -15,8 +15,8 @@ const PanelSkills = ({skills, onShowTooltip, onHideTooltip, onToggleSkill}:Panel
         <>
         <div className="paneles-laterales relative z-50" style={{ direction: 'rtl' }}>
             <div style={{ direction: 'ltr' }} className="flex flex-col w-full items-center justify-start gap-4 p-1">
-                <div className="sticky top-0 z-20 bg-[#0f0f0f] w-full py-3 shadow-md text-center">
-                    <div className="sticky z-10 flex justify-center">Habilidades:</div>
+                <div className="sticky top-0 z-20 w-full shadow-md ">
+                    <div className="bg-[#0f0f0f] py-3 text-center w-full h-full">Habilidades:</div>
                 </div>    
                 {activeSkills.length > 0 && (
                     <div className="sticky top-[48px] z-10 bg-[#0f0f0f] w-full py-2 shadow-md flex flex-col gap-4">

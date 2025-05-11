@@ -16,7 +16,7 @@ export function useTodos(){
     useEffect(()=>{
         const load = async () =>{
             setLoading(true);
-            const q = query(collection(db, "todos"), orderBy("createdAt","asc"));
+            const q = query(collection(db, "todos"), orderBy("createdAt","desc"));
             try{
                 const snapshot = await getDocs(q);
                 const data = snapshot.docs.map((doc) =>({
