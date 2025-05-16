@@ -16,7 +16,7 @@ export interface BaseItemData{
 /**Armas */
 export interface WeaponData extends BaseItemData{
     category: 'weapon';
-    atk: number;
+    str: number;
 }
 
 /**Armaduras */
@@ -28,7 +28,7 @@ export interface ArmorData extends BaseItemData{
 /**Acessorios */
 export interface AccessoryData extends BaseItemData{
     category: 'accessory';
-    atk?: number;
+    str?: number;
     def?: number;
     agi?: number;
     con?: number;
@@ -48,3 +48,10 @@ export interface KeyItemData extends BaseItemData{
 }
 
 export type RawItemData =  WeaponData | ArmorData | AccessoryData | ConsumableData | KeyItemData;
+export type EquipSlot =
+  | 'mainHand'     // arma
+  | 'offHand'      // arma secundaria o escudo
+  | 'twoHands'     // arma a dos manos
+  | 'body'         // armadura
+  | 'accessory1'   // anillo, pendiente, etc.
+  | 'accessory2';  // segundo accesorio

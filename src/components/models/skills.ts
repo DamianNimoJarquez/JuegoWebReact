@@ -1,4 +1,5 @@
-import { Atributos } from "./player";
+import { Atributos } from "./player/type";
+
 
 export class Skill{
     constructor(

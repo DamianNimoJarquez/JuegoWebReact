@@ -1,4 +1,4 @@
-import { Atributos } from "../components/models/player";
+import { Atributos } from "../components/models/player/player";
 import { CompositeObjective } from "../components/models/quests/compositeObjective";
 import { DialogueObjective } from "../components/models/quests/dialogueObjective";
 import { Quest } from "../components/models/quests/quest";

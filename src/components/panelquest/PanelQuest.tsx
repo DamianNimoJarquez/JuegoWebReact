@@ -2,7 +2,7 @@ import { useState } from "react";
 import QuestCard from "./QuestCard";
 import Modal from "./Modal";
 import { Quest } from "../models/quests/quest";
-import { InventorySlot } from "../models/player";
+import { InventorySlot } from "../models/player/player";
 
 interface PanelQuestProps{
     quests: Quest[];
@@ -13,7 +13,7 @@ const PanelQuests = ({quests, inventory}: PanelQuestProps) => {
 
     const [openmodal, setOpenmodal] = useState<boolean>(false);
     const onGoingQuests = quests.filter((q)=> q.completed === false);
-    console.log(onGoingQuests);
+    
     return ( 
         <>
         <div className="paneles-laterales">

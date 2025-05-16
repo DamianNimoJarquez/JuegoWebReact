@@ -1,19 +1,11 @@
-import { Item } from "./items/item"
-import { Quest } from "./quests/quest"
-import { UpdateData } from "./quests/types"
-import { Skill } from "./skills"
+import { Equipable } from "../items/equipable"
+import { Item } from "../items/item"
+import { Quest } from "../quests/quest"
+import { UpdateData } from "../quests/types"
+import { Skill } from "../skills"
+import { Atributos, EquipmentSlots, InventorySlot } from "./type"
 
-export interface Atributos{
-    agi: number
-    conc: number
-    def: number
-    str: number
-    level: number
-}
-export interface InventorySlot{
-    item: Item;
-    qty: number;
-}
+
 
 export class Player{
     constructor(
@@ -26,6 +18,16 @@ export class Player{
         public expLvlUp: number,
         public inventory: InventorySlot[],
         public gold: number = 0,
+        public equipment: EquipmentSlots = {
+            weapon: null,
+            armor: null,
+            accessory: null,
+        },
+        public hp: number = 10,
+        public maxHp: number = 100,
+        public mp: number = 20,
+        public maxMp: number = 50,
+        public level: number = 1,
     ){}
 
     toggleSkills(id: string): Player{
@@ -93,4 +95,40 @@ export class Player{
             this.expLvlUp,
             newIventory);
     }
+
+    public equipItem(item: Equipable): Player{
+        //asignar por categoría
+        const slot = item.category as keyof EquipmentSlots;
+        //clonar inventario y slots
+        const newIventory = [...this.inventory];
+        const newEquipament = {...this.equipment};
+        //Si ya había algo devolverlo al inventario
+        const prev = newEquipament[slot];
+        if(prev){
+            const idx = newIventory.findIndex(s => s.item.id == prev.id);
+            if(idx >= 0)
+                newIventory[idx].qty++;
+            else
+                newIventory.push({item: prev, qty: 1});
+        }
+        //quitar 1 unidad del item del inventario.
+        const idx = newIventory.findIndex(s => s.item.id == item.id);
+        if(idx >= 0){
+            newIventory[idx].qty--;
+            if(newIventory[idx].qty<=0)
+                newIventory.splice(idx,1);
+        }
+        //Equipar el item
+        newEquipament[slot] = item;
+
+        return new Player(
+            this.name,this.atributos,this.limiteSkillActivas,this.skills,this.quests,this.exp,
+            this.expLvlUp,newIventory,this.gold,newEquipament
+        );
+            
+    }
+
+    
 }
+
+

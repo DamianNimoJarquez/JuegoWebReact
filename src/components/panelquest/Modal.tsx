@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Quest } from "../models/quests/quest";
-import { InventorySlot } from "../models/player";
 import { CompositeObjective } from "../models/quests/compositeObjective";
 import { getItems } from "../../utils/createDatas";
+import { InventorySlot } from "../models/player/type";
 
 interface ModalProps{
     open: boolean;

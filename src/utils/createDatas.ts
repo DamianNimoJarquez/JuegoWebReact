@@ -1,14 +1,16 @@
 import { Item } from "../components/models/items/item";
 import { RawItemData } from "../components/models/items/type";
+import { InventorySlot } from "../components/models/player/type";
+
 import { createItem } from "./createItem";
 
 export const ListItems: Record<string, Record<string, RawItemData>> = {
     weapon:{
         espada_corta:{
-            id: 'espada_corta', name: 'Espada Corta', category: 'weapon', priceBuy: 100, priceSell: 100, info: 'Una espada corta y afilada.', atk: 5
+            id: 'espada_corta', name: 'Espada Corta', category: 'weapon', priceBuy: 100, priceSell: 100, info: 'Una espada corta y afilada.', str: 5
         },
         espada_larga: {
-            id: 'espada_larga', name: 'Espada Larga', category: 'weapon',priceBuy: 200, priceSell: 100, info: 'Una espada larga que inflige más daño.',atk: 7
+            id: 'espada_larga', name: 'Espada Larga', category: 'weapon',priceBuy: 200, priceSell: 100, info: 'Una espada larga que inflige más daño.',str: 7
         }
     },
     armor: {
@@ -27,7 +29,7 @@ export const ListItems: Record<string, Record<string, RawItemData>> = {
         anillo_fuerza: {
             id: 'anillo_fuerza', name: 'Anillo de Fuerza', category: 'accessory',
             priceBuy: 120, priceSell: 60, info: 'Aumenta levemente el ataque.',
-            atk: 3, def: 1, agi: 0, con: 0
+            str: 3, def: 1, agi: 0, con: 0
         }
     },
     consumable: {
@@ -64,4 +66,21 @@ export function getItems(): Item[]{
         }
     }
     return items;
+}
+
+export function getItemsSlots(): InventorySlot[]{
+    const items: InventorySlot[] = [];
+
+    for(const categoryKey in ListItems){
+        const categoryGroup = ListItems[categoryKey];
+        for(const idKey in categoryGroup){
+            const rawData = categoryGroup[idKey];
+            const itemInstance = createItem(rawData);
+            if(itemInstance){
+                items.push({item: itemInstance, qty: 1});
+            }
+        }
+    }
+    return items;
+
 }

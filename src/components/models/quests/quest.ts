@@ -1,4 +1,4 @@
-import { Atributos } from "../player";
+import { Atributos } from "../player/player";
 import { QuestStep } from "./questSetp";
 import { UpdateData } from "./types";
 

@@ -12,7 +12,7 @@ export function createItem(data: RawItemData): Item{
             return new Equipable({
                 ...data,
                 stats:{
-                    atk: (data as any).atk,
+                    str: (data as any).str,
                     def: (data as any).def,
                     agi: (data as any).agi,
                     con: (data as any).con,
