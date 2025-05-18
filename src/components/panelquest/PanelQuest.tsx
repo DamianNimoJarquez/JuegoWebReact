@@ -2,7 +2,7 @@ import { useState } from "react";
 import QuestCard from "./QuestCard";
 import Modal from "./Modal";
 import { Quest } from "../models/quests/quest";
-import { InventorySlot } from "../models/player/player";
+import { InventorySlot } from "../models/player/type";
 
 interface PanelQuestProps{
     quests: Quest[];

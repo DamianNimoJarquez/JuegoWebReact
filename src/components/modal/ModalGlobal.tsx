@@ -22,7 +22,7 @@ const ModalGlobal = ({open, onClose, disableClose = false, children}: ModalGloba
         <>
         <div className="fixed inset-0 z-50, flex items-center justify-center bg-black/60"
             onClick={()=>{if(!disableClose) onClose();}}>
-                <div className=" relative bg-white dark:bg-gray-900 rounded-lg max-w-3xl w-full p-4"
+                <div className="relative bg-white dark:bg-gray-900 rounded-lg max-w-3xl w-full p-4"
                     onClick={e => e.stopPropagation()}> {/*para no quitarlo cuando se hace click en el*/}
                         {children}
                 </div>

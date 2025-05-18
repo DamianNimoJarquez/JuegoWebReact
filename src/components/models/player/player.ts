@@ -97,6 +97,7 @@ export class Player{
     }
 
     public equipItem(item: Equipable): Player{
+        //Desequipar
         //asignar por categoría
         const slot = item.category as keyof EquipmentSlots;
         //clonar inventario y slots
@@ -105,12 +106,14 @@ export class Player{
         //Si ya había algo devolverlo al inventario
         const prev = newEquipament[slot];
         if(prev){
+            prev.equipped = false;
             const idx = newIventory.findIndex(s => s.item.id == prev.id);
             if(idx >= 0)
                 newIventory[idx].qty++;
             else
                 newIventory.push({item: prev, qty: 1});
         }
+        //Equipar
         //quitar 1 unidad del item del inventario.
         const idx = newIventory.findIndex(s => s.item.id == item.id);
         if(idx >= 0){
@@ -119,13 +122,33 @@ export class Player{
                 newIventory.splice(idx,1);
         }
         //Equipar el item
+        item.equipped = true;
         newEquipament[slot] = item;
 
         return new Player(
             this.name,this.atributos,this.limiteSkillActivas,this.skills,this.quests,this.exp,
             this.expLvlUp,newIventory,this.gold,newEquipament
         );
-            
+    }
+
+    public unEquip(item: Equipable): Player{
+        const slot = item.category as keyof EquipmentSlots;
+        const newIventory = [...this.inventory];
+        const newEquipament = {...this.equipment};
+        const prev = newEquipament[slot];
+        if(prev){
+            prev.equipped = false;
+            const idx = newIventory.findIndex(s => s.item.id == prev.id);
+            if(idx >= 0)
+                newIventory[idx].qty++;
+            else
+                newIventory.push({item: prev, qty: 1});
+        }
+        newEquipament[slot] = null;
+        return new Player(
+            this.name,this.atributos,this.limiteSkillActivas,this.skills,this.quests,this.exp,
+            this.expLvlUp,newIventory,this.gold,newEquipament
+        );
     }
 
     

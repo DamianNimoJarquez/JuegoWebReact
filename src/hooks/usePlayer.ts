@@ -18,6 +18,10 @@ export function usePlayer(inicial: Player){
     const equipeItem = useCallback((item: Equipable)=>{
         setJugador(prev => prev.equipItem(item));
     },[])
+    //Callback para desequipar item
+    const unEquipItem = useCallback((item: Equipable)=>{
+        setJugador(prev => prev.unEquip(item));
+    },[])
 
-    return {jugador, onToggleSkill, obtainItem, equipeItem};
+    return {jugador, onToggleSkill, obtainItem, equipeItem, unEquipItem};
 }

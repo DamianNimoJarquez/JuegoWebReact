@@ -13,7 +13,7 @@ const InventoryItemGrid = ({inventory, equipment, activeTab, onSelectItem}: Inve
     let slotsToShow: InventorySlot[] = [];
     if(activeTab === 'equipped'){
         slotsToShow = [];
-        Object.values(equipment).forEach((slot) =>{if(slot) slotsToShow.push(slot);});
+        Object.values(equipment).forEach((slot) =>{if(slot) slotsToShow.push({item: slot, qty: 1});});
     }
     else
         slotsToShow = inventory.filter(s => s.item.category === activeTab);

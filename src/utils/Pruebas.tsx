@@ -11,19 +11,14 @@ import { Consumable } from "../components/models/items/consumable";
 interface PruebasProps{
     onObtainItem: (item: Item, qty: number) => void;
     onEquipeItem: (item: Equipable) => void;
+    onUnEquipItem: (item: Equipable) =>void;
     jugador: Player;
 }
-const Pruebas = ({onObtainItem,onEquipeItem,jugador}: PruebasProps) => {
+const Pruebas = ({onObtainItem,onEquipeItem,jugador, onUnEquipItem}: PruebasProps) => {
     const [showInventory, setShowInventory] = useState(false);
     const openInventory = () => setShowInventory(true);
     const closeInventory = () => setShowInventory(false);
     // Dummy callbacks para pruebas
-    const handleEquip = (item: Equipable) => {
-        console.log("Equipar dummy:", item);
-    };
-    const handleUnequip = (item: Equipable) => {
-        console.log("Desequipar dummy:", item);
-    };
     const handleUse = (item: Consumable) => {
         console.log("Usar dummy:", item);
     };
@@ -42,7 +37,7 @@ const Pruebas = ({onObtainItem,onEquipeItem,jugador}: PruebasProps) => {
             className=" cursor-pointer bg-cyan-900 text-white rounded-2xl p-3 hover:bg-cyan-500 hover:font-bold"
             onClick={openInventory}
             >Iventario</button>
-            <InventoryModal open={showInventory} onClose={closeInventory} inventory={jugador.inventory} equipment={jugador.equipment as EquipmentSlots} onEquip={handleEquip} onUnequip={handleUnequip} onUse={handleUse} />
+            <InventoryModal open={showInventory} onClose={closeInventory} inventory={jugador.inventory} equipment={jugador.equipment as EquipmentSlots} onEquip={onEquipeItem} onUnequip={onUnEquipItem} onUse={handleUse} />
         </div>
         </>
      );

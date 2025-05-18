@@ -1,10 +1,10 @@
 import { Item } from "../items/item";
 
 export interface Atributos{
-    agi: number
-    conc: number
-    def: number
-    str: number
+    str: number;
+    def: number;
+    agi: number;
+    conc: number;
 }
 export interface InventorySlot{
     item: Item;

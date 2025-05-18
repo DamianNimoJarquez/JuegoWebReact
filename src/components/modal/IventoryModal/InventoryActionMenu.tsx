@@ -13,7 +13,8 @@ interface InventoryActionMenuProps{
 }
 //Menú de opciones
 const InventoryActionMenu = ({slot,activeTab,onEquip,onUnequip,onUse,onClose}: InventoryActionMenuProps) => {
-    const {item, } = slot;
+    const item = slot.item ?? slot;
+    
     //determinar opciones
     const isEquipeTab = ['weapon', 'armor', 'accessory'].includes(activeTab);
     const isEquipeedTab = activeTab === 'equipped';
@@ -36,15 +37,15 @@ const InventoryActionMenu = ({slot,activeTab,onEquip,onUnequip,onUse,onClose}: I
                 <div className="mb-2 font-semibold text-center">Acciones:</div>
                 <div className="flex flex-col space-y-2">
                     {isEquipeTab && (
-                        <button className="botonOpcionesIventario" onClick={handleEquip}>Equipar</button>
+                        <button className="botonOpcionesIventario" onClick={handleEquip}>Equipar {item.name}</button>
                     )}
                     {isEquipeedTab &&(
-                        <button className="botonOpcionesIventario bg-red-600" onClick={handleUnequip}>Desequipar</button>
+                        <button className="botonOpcionesIventario bg-red-600" onClick={handleUnequip}>Desequipar {item.name}</button>
                     )}
                     {isUsableTab &&(
-                        <button className="botonOpcionesIventario bg-green-600" onClick={handleUse}>Usar</button>
+                        <button className="botonOpcionesIventario bg-green-600" onClick={handleUse}>Usar {item.name}</button>
                     )}
-                    <button className="botonOpcionesIventario bg-gray-500" onClick={handleUnequip}>Cancelar</button>
+                    <button className="botonOpcionesIventario bg-gray-500" onClick={onClose}>Cancelar</button>
                 </div>
             </div>
         </> 

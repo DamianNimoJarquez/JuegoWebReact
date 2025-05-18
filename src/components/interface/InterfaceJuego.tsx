@@ -27,7 +27,7 @@ const InterfaceJuego = () => {
     const skill = new Skill(i.toString(),"Furigana " + (i+1).toString(),"Permite ver furigana en los kanjis","Ver Furigana","Pasiva",{agi: 0,conc: 0,def: 0,str: 0},i%2 === 0 ? "inactive": "bloqued");
     jugadorInicial.skills.push(skill);
   }
-  const {jugador, onToggleSkill, obtainItem, equipeItem} = usePlayer(jugadorInicial);
+  const {jugador, onToggleSkill, obtainItem, equipeItem, unEquipItem} = usePlayer(jugadorInicial);
 
   const { showTooltip, hideTooltip, TooltipPortal } = useTooltip();
   return (  
@@ -37,7 +37,7 @@ const InterfaceJuego = () => {
         <PanelSkills skills={jugador.skills}  onShowTooltip={showTooltip} onHideTooltip={hideTooltip} onToggleSkill={onToggleSkill}/>
         <PanelCentral />
         <PanelQuests quests={jugador.quests} inventory={jugador.inventory}/>
-        <PanelUi display={true} jugador={jugador} onObtainItem={obtainItem} onEquipeItem={equipeItem}/>
+        <PanelUi display={true} jugador={jugador} onObtainItem={obtainItem} onEquipeItem={equipeItem} onUnEquipItem={unEquipItem}/>
         
         <TooltipPortal />
       </div>

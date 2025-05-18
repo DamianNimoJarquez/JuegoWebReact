@@ -1,3 +1,5 @@
+import { TabKey, tabLabels } from "./types";
+
 interface InventoryTabsModalProps<T>{
     tabs: T[];
     active: T;
@@ -30,10 +32,10 @@ export function InventoryTabsModal<T extends string>({tabs, active, onChange, lo
     
     return (
         <>
-            <div className="panelBotonesOpcionesIventario">
+            <div className="panelBotonesOpcionesIventario justify-center">
                 {tabs.map(tabKey =>(
                     <TabButton key={tabKey}
-                        label={String(tabKey).charAt(0).toUpperCase() + String(tabKey).slice(1)}
+                        label={String(tabLabels[tabKey as TabKey] ?? tabKey).charAt(0).toUpperCase() + String(tabLabels[tabKey as TabKey] ?? tabKey).slice(1)}
                         active={tabKey === active}
                         disabled={locked || disableTabs.includes(tabKey)}
                         onClick={() => onChange(tabKey)} />

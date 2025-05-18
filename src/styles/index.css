@@ -39,7 +39,7 @@
         @apply bg-[rgba(164,194,110,0.71)] text-white select-none p-3 rounded-lg w-full flex flex-col justify-center items-center
     }
     .botonOpcionesIventario{
-        @apply px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 cursor-pointer
+        @apply px-4 py-2 mb-2 ml-1 mr-1 bg-blue-600 text-white rounded-full hover:bg-blue-700 cursor-pointer
     }
     .baseBotonIventoryModal{
         @apply px-4 py-2 cursor-pointer

@@ -12,13 +12,14 @@ interface PanelUiProps{
     jugador: Player;
     onObtainItem: (item: Item, qty: number) => void;
     onEquipeItem: (item: Equipable) => void;
+    onUnEquipItem: (item: Equipable) => void;
 }
-const PanelUi = ({display, jugador, onObtainItem, onEquipeItem}: PanelUiProps) => {
+const PanelUi = ({display, jugador, onObtainItem, onEquipeItem, onUnEquipItem}: PanelUiProps) => {
     const equipmentModifiers = useEquipmentModifiers(jugador.equipment);
     return ( 
         <>
             <div className="color-panel-ui flex justify-center items-center">
-                <Pruebas onObtainItem={onObtainItem} onEquipeItem={onEquipeItem} jugador={jugador} />
+                <Pruebas onObtainItem={onObtainItem} onEquipeItem={onEquipeItem} jugador={jugador} onUnEquipItem={onUnEquipItem} />
             </div>
             <div className="panel-ui overflow-auto">
                 { display && (

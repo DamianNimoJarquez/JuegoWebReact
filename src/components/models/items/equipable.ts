@@ -4,6 +4,7 @@ import { BaseItemData, EquipSlot } from "./type";
 export interface EquipableData extends BaseItemData{
     category: 'weapon' | 'armor' | 'accessory';
     stats: {str?:number; def?:number; agi?:number; con?:number};
+    equipped: boolean;
     //equipSlots: EquipSlot[];
 }
 
@@ -13,6 +14,7 @@ export class Equipable extends Item{
     constructor(data: EquipableData){
         super(data.id,data.name,data.category,data.priceBuy,data.priceSell,data.info,data.usable,data.action,data.func)
         this.stats = data.stats;
+        this.equipped = data.equipped?? false;
         //this.equipSlots = data.equipSlots;
     }
     getDescription(): string {
