@@ -35,10 +35,9 @@ const InterfaceJuego = () => {
       <div className="grid grid-cols-5 grid-rows-[10%_1fr_20%] gap-0 h-screen">
         <PanelInfo lugar="??" zonalevel="??" playerlevel={-1}/>
         <PanelSkills skills={jugador.skills}  onShowTooltip={showTooltip} onHideTooltip={hideTooltip} onToggleSkill={onToggleSkill}/>
-        {/* <PanelCentral /> */}
-        <Pruebas onObtainItem={obtainItem} onEquipeItem={equipeItem} />
+        <PanelCentral />
         <PanelQuests quests={jugador.quests} inventory={jugador.inventory}/>
-        <PanelUi display={true} jugador={jugador}/>
+        <PanelUi display={true} jugador={jugador} onObtainItem={obtainItem} onEquipeItem={equipeItem}/>
         
         <TooltipPortal />
       </div>

@@ -8,7 +8,7 @@
         background-color: var(--color-panel-ui);
     }
     .paneles-laterales{
-        @apply row-start-2 flex flex-col items-center justify-start w-full sm:w-full bg-[#3A3A55] text-white h-full max-h-[calc(100vh-150px)] overflow-y-auto gap-2 z-[1000]
+        @apply row-start-2 flex flex-col items-center justify-start w-full sm:w-full bg-[#3A3A55] text-white h-full max-h-[calc(100vh-150px)] overflow-y-auto gap-2
     }
     .bg-panel {
         @apply bg-[#2A2A40];
@@ -38,4 +38,30 @@
     .quest-side{
         @apply bg-[rgba(164,194,110,0.71)] text-white select-none p-3 rounded-lg w-full flex flex-col justify-center items-center
     }
+    .botonOpcionesIventario{
+        @apply px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 cursor-pointer
+    }
+    .baseBotonIventoryModal{
+        @apply px-4 py-2 cursor-pointer
+    }
+    .activeTabIventory{
+        @apply border-b-2 border-blue-600 text-blue-600 font-semibold
+    }
+    .inactiveTabIventory{
+        @apply text-gray-600
+    }
+    .disableTabIventory{
+        @apply opacity-50 cursor-not-allowed
+    }
+    .panelBotonesOpcionesIventario{
+        @apply flex border-b border-gray-300
+    }
+    .actionInventoryOpciones{
+        @apply mt-4 p-4 bg-white dark:bg-gray-800 border border-gray-300 rounded-full shadow-lg
+    }
+    .gridInventoryCard{
+        @apply grid grid-cols-[2fr_2fr_1fr] gap-4 p-2 hover:bg-gray-500 cursor-pointer
+    }
+
+    
 }
