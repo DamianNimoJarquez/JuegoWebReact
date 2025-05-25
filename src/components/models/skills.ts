@@ -1,5 +1,8 @@
 import { Atributos } from "./player/type";
 
+interface AttributesRequired extends Atributos{
+  level: number;
+}
 
 export class Skill{
     constructor(
@@ -8,7 +11,7 @@ export class Skill{
         public description: string,
         public shortDesc: string,
         public type: string,
-        public requirements: Atributos,
+        public requirements: AttributesRequired,
         public state: "active" | "inactive" | "bloqued"
       ) {}
 

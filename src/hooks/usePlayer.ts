@@ -2,6 +2,8 @@ import { useCallback, useState } from "react";
 import { Player } from "../components/models/player/player";
 import { Item } from "../components/models/items/item";
 import { Equipable } from "../components/models/items/equipable";
+import { Consumable } from "../components/models/items/consumable";
+import { KeyItems } from "../components/models/items/keyitems";
 
 
 export function usePlayer(inicial: Player){
@@ -22,6 +24,9 @@ export function usePlayer(inicial: Player){
     const unEquipItem = useCallback((item: Equipable)=>{
         setJugador(prev => prev.unEquip(item));
     },[])
+    const useItem = useCallback((item: Consumable | KeyItems) =>{
+        setJugador(prev => prev.useItem(item));
+    },[]);
 
-    return {jugador, onToggleSkill, obtainItem, equipeItem, unEquipItem};
+    return {jugador, onToggleSkill, obtainItem, equipeItem, unEquipItem, useItem};
 }

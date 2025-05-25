@@ -1,6 +1,8 @@
 import { Item } from "../components/models/items/item";
 import { RawItemData } from "../components/models/items/type";
+import { Player } from "../components/models/player/player";
 import { InventorySlot } from "../components/models/player/type";
+import { Skill } from "../components/models/skills";
 
 import { createItem } from "./createItem";
 
@@ -45,11 +47,27 @@ export const ListItems: Record<string, Record<string, RawItemData>> = {
         }
     },
     key: {
-        piedra_misteriosa: {
-            id: 'piedra_misteriosa', name: 'Piedra Misteriosa', category: 'key',
-            priceBuy: 0, priceSell: 0, info: 'Una piedra misteriosa.',
-            usable: true, action: 'Habilidad',
-            func: () => createItem(ListItems.weapon.espada_corta)
+        libro_fuego: {
+            id: 'libro_fuego',
+            name: 'Libro de Fuego',
+            category: 'key',
+            priceBuy: 500,
+            priceSell: 0,
+            usable: true,
+            info: 'Aprendes la habilidad Fireball.',
+            action: (player: Player) => {
+                // Crea la skill y la añade al jugador
+                const fireball = new Skill(
+                    'fireball',
+                    'Fireball',
+                    'Lanzas una bola de fuego',
+                    'Bola de fuego',
+                    'magia',
+                    { agi: 0, conc: 0, def: 0, str: 0, level: 1 },
+                    'inactive'
+                );
+                return player.addSkill(fireball);
+            }
         }
     }
 }

@@ -10,7 +10,6 @@ export class KeyItems extends Item{
             data.priceSell,
             data.info,
             data.usable ?? false,
-            data.action,
-            data.func);
+            data.action);
     }
 }

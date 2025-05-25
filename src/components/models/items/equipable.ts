@@ -12,7 +12,7 @@ export class Equipable extends Item{
     public readonly stats: EquipableData['stats'];
     //public readonly equipSlots: EquipableData['equipSlots'];
     constructor(data: EquipableData){
-        super(data.id,data.name,data.category,data.priceBuy,data.priceSell,data.info,data.usable,data.action,data.func)
+        super(data.id,data.name,data.category,data.priceBuy,data.priceSell,data.info,data.usable,data.action)
         this.stats = data.stats;
         this.equipped = data.equipped?? false;
         //this.equipSlots = data.equipSlots;

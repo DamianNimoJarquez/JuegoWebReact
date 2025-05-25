@@ -1,3 +1,5 @@
+import { Player } from "../player/player";
+
 export type ItemCategory = 'weapon' | 'armor' | 'accessory' | 'consumable' | 'key';
 
 /**Base común de atributos de los items */
@@ -9,8 +11,7 @@ export interface BaseItemData{
     priceSell: number;
     info: string;
     usable?: boolean;
-    action?: string;
-    func?: () => void;
+    action?: (jugador: Player) => Player;
 }
 
 /**Armas */
@@ -44,7 +45,6 @@ export interface ConsumableData extends BaseItemData{
 /**Objetos Claves */
 export interface KeyItemData extends BaseItemData{
     category: 'key';
-
 }
 
 export type RawItemData =  WeaponData | ArmorData | AccessoryData | ConsumableData | KeyItemData;

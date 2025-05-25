@@ -16,7 +16,8 @@ export function createItem(data: RawItemData): Item{
                     def: (data as any).def,
                     agi: (data as any).agi,
                     con: (data as any).con,
-                }
+                },
+                equipped: false,
             });
         case "consumable":
             return new Consumable(data);

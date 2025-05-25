@@ -22,12 +22,12 @@ const InterfaceJuego = () => {
   const jugadorInicial = new Player("Fulanito",{str:110,agi:50,conc:40,def:70},3,[],getmisiones(),0,100,getItemsSlots());
   
   /**Crear skills para probar */
-  jugadorInicial.skills.push(new Skill("i.toString()","Furigana 0","Permite ver furigana en los kanjis","Ver Furigana","Pasiva",{agi: 0,conc: 0,def: 0,str: 0,},"active"));
+  jugadorInicial.skills.push(new Skill("i.toString()","Furigana 0","Permite ver furigana en los kanjis","Ver Furigana","Pasiva",{agi: 0,conc: 0,def: 0,str: 0, level: 0},"active"));
   for(let i = 0; i < 2; ++i){
-    const skill = new Skill(i.toString(),"Furigana " + (i+1).toString(),"Permite ver furigana en los kanjis","Ver Furigana","Pasiva",{agi: 0,conc: 0,def: 0,str: 0},i%2 === 0 ? "inactive": "bloqued");
+    const skill = new Skill(i.toString(),"Furigana " + (i+1).toString(),"Permite ver furigana en los kanjis","Ver Furigana","Pasiva",{agi: 0,conc: 0,def: 0,str: 0, level: 3},i%2 === 0 ? "inactive": "bloqued");
     jugadorInicial.skills.push(skill);
   }
-  const {jugador, onToggleSkill, obtainItem, equipeItem, unEquipItem} = usePlayer(jugadorInicial);
+  const {jugador, onToggleSkill, obtainItem, equipeItem, unEquipItem, useItem} = usePlayer(jugadorInicial);
 
   const { showTooltip, hideTooltip, TooltipPortal } = useTooltip();
   return (  
@@ -37,7 +37,7 @@ const InterfaceJuego = () => {
         <PanelSkills skills={jugador.skills}  onShowTooltip={showTooltip} onHideTooltip={hideTooltip} onToggleSkill={onToggleSkill}/>
         <PanelCentral />
         <PanelQuests quests={jugador.quests} inventory={jugador.inventory}/>
-        <PanelUi display={true} jugador={jugador} onObtainItem={obtainItem} onEquipeItem={equipeItem} onUnEquipItem={unEquipItem}/>
+        <PanelUi display={true} jugador={jugador} onObtainItem={obtainItem} onEquipeItem={equipeItem} onUnEquipItem={unEquipItem} onUseItem={useItem}/>
         
         <TooltipPortal />
       </div>

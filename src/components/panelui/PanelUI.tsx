@@ -6,6 +6,8 @@ import EquipmentPanel from "./EquipmentPanel";
 import Pruebas from "../../utils/Pruebas";
 import { Item } from "../models/items/item";
 import { Equipable } from "../models/items/equipable";
+import { Consumable } from "../models/items/consumable";
+import { KeyItems } from "../models/items/keyitems";
 
 interface PanelUiProps{
     display: boolean;
@@ -13,13 +15,14 @@ interface PanelUiProps{
     onObtainItem: (item: Item, qty: number) => void;
     onEquipeItem: (item: Equipable) => void;
     onUnEquipItem: (item: Equipable) => void;
+    onUseItem: (item: Consumable| KeyItems) => void;
 }
-const PanelUi = ({display, jugador, onObtainItem, onEquipeItem, onUnEquipItem}: PanelUiProps) => {
+const PanelUi = ({display, jugador, onObtainItem, onEquipeItem, onUnEquipItem, onUseItem}: PanelUiProps) => {
     const equipmentModifiers = useEquipmentModifiers(jugador.equipment);
     return ( 
         <>
             <div className="color-panel-ui flex justify-center items-center">
-                <Pruebas onObtainItem={onObtainItem} onEquipeItem={onEquipeItem} jugador={jugador} onUnEquipItem={onUnEquipItem} />
+                <Pruebas onObtainItem={onObtainItem} onEquipeItem={onEquipeItem} jugador={jugador} onUnEquipItem={onUnEquipItem} onUseItem={onUseItem} />
             </div>
             <div className="panel-ui overflow-auto">
                 { display && (

@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { EquipmentSlots, InventorySlot } from "../components/models/player/type";
+import { EquipmentSlots } from "../components/models/player/type";
 import { Equipable } from "../components/models/items/equipable";
 
 export function useEquipmentModifiers(equipment: EquipmentSlots){

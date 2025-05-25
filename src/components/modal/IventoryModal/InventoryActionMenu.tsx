@@ -1,5 +1,6 @@
 import { Consumable } from "../../models/items/consumable";
 import { Equipable } from "../../models/items/equipable";
+import { KeyItems } from "../../models/items/keyitems";
 import { InventorySlot } from "../../models/player/type";
 import { TabKey } from "./types";
 
@@ -18,7 +19,7 @@ const InventoryActionMenu = ({slot,activeTab,onEquip,onUnequip,onUse,onClose}: I
     //determinar opciones
     const isEquipeTab = ['weapon', 'armor', 'accessory'].includes(activeTab);
     const isEquipeedTab = activeTab === 'equipped';
-    const isUsableTab = ['consumable','key'].includes(activeTab) && (item as any).usable;
+    const isUsableTab = ['consumable','key'].includes(activeTab) && (item as Consumable | KeyItems).usable;
     const handleEquip = () =>{
         onEquip(item as Equipable);
         onClose();

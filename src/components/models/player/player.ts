@@ -1,5 +1,7 @@
+import { Consumable } from "../items/consumable"
 import { Equipable } from "../items/equipable"
 import { Item } from "../items/item"
+import { KeyItems } from "../items/keyitems"
 import { Quest } from "../quests/quest"
 import { UpdateData } from "../quests/types"
 import { Skill } from "../skills"
@@ -38,7 +40,7 @@ export class Player{
             if(skill.state === 'inactive' && numSkillActive >= this.limiteSkillActivas) return skill;
             return new Skill(skill.id,skill.name, skill.description, skill.shortDesc, skill.type, skill.requirements, skill.state === 'active' ? 'inactive' : 'active');
         });
-        return new Player(this.name, {...this.atributos}, this.limiteSkillActivas,changedSkill,this.quests,this.exp,this.expLvlUp,this.inventory)
+        return new Player(this.name, {...this.atributos}, this.limiteSkillActivas,changedSkill,this.quests,this.exp,this.expLvlUp,this.inventory,this.gold,this.equipment,this.hp,this.maxHp,this.mp,this.maxMp,this.level)
     }
 
     unLockSkills(): Player{
@@ -127,7 +129,7 @@ export class Player{
 
         return new Player(
             this.name,this.atributos,this.limiteSkillActivas,this.skills,this.quests,this.exp,
-            this.expLvlUp,newIventory,this.gold,newEquipament
+            this.expLvlUp,newIventory,this.gold,newEquipament,this.hp,this.maxHp,this.mp,this.maxMp,this.level
         );
     }
 
@@ -147,10 +149,32 @@ export class Player{
         newEquipament[slot] = null;
         return new Player(
             this.name,this.atributos,this.limiteSkillActivas,this.skills,this.quests,this.exp,
-            this.expLvlUp,newIventory,this.gold,newEquipament
+            this.expLvlUp,newIventory,this.gold,newEquipament,this.hp,this.maxHp,this.mp,this.maxMp,this.level
+        );
+    }
+    public useItem(item: Consumable | KeyItems): Player{
+        const newIventory = [...this.inventory];
+        const idx = newIventory.findIndex(s => s.item.id == item.id);
+        if(item.category=='consumable'){
+            if(idx >=0 && --newIventory[idx].qty <= 0)
+                newIventory.splice(idx,1);
+            this.hp = Math.min(this.maxHp, this.hp + ((item as Consumable).hpRecovered || 0));
+            this.mp = Math.min(this.maxMp, this.mp + ((item as Consumable).mpRecovered || 0));
+        }
+        if(item.action){
+            item.usable=false;
+            return item.action(this);
+        }
+        return new Player(
+            this.name,this.atributos,this.limiteSkillActivas,this.skills,this.quests,this.exp,
+            this.expLvlUp,newIventory,this.gold,this.equipment,this.hp,this.maxHp,this.mp,this.maxMp,this.level
         );
     }
 
+    public addSkill(skill: Skill): Player{
+        this.skills = [...this.skills, skill];
+        return this.unLockSkills()
+    }
     
 }
 

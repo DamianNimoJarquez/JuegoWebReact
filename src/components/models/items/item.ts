@@ -1,3 +1,4 @@
+import { Player } from "../player/player";
 import { BaseItemData } from "./type";
 
 export abstract class Item{
@@ -9,9 +10,8 @@ export abstract class Item{
         public readonly priceBuy: number,
         public readonly priceSell: number,
         public readonly info: string,
-        public readonly usable: boolean = false,
-        public readonly action?: string,
-        public readonly func?: () => void
+        public usable: boolean = false,
+        public readonly action?: (jugador: Player) => Player
     ){}
 
     getInfo(): string{

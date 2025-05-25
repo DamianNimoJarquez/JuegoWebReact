@@ -7,3 +7,6 @@
 - [ ] Crear el componente para crear habilidades a firebase
 # ToDo para Misiones:
 - [ ] Crear las clases con las estructuras de datos para almacenar las misiones
+
+# Puzles
+- [ ] de memorizar cartas pero con kanji o letras o figuras y palabra
