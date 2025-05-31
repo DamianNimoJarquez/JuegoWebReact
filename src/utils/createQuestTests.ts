@@ -1,11 +1,11 @@
-import { Atributos } from "../components/models/player/player";
+import { Atributos } from "../components/models/player/type";
 import { CompositeObjective } from "../components/models/quests/compositeObjective";
 import { DialogueObjective } from "../components/models/quests/dialogueObjective";
 import { Quest } from "../components/models/quests/quest";
 import { QuestStep } from "../components/models/quests/questSetp";
 import { TargetObjective } from "../components/models/quests/targetObjective";
 
-const requisitosBase: Atributos = { agi:0, conc:0, def:0, str:0, level:1 };
+const requisitosBase: Atributos = { agi:0, conc:0, def:0, str:0};
 
 //quest 1 hablar con npc
 export const quest1 = new Quest(

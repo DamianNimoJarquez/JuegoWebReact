@@ -19,10 +19,42 @@ interface PruebasProps{
 const Pruebas = ({onObtainItem,onEquipeItem,jugador, onUnEquipItem, onUseItem}: PruebasProps) => {
     const [showInventory, setShowInventory] = useState(false);
     const openInventory = () => setShowInventory(true);
-    const closeInventory = () => setShowInventory(false);
+    //const closeInventory = () => setShowInventory(false);
+    // Tutorial
+    const tutorialSteps = [
+        "Por favor, equipa un arma desde la pestaña \"Weapon\".",
+        "¡Perfecto! Ahora cierra el inventario para continuar.",
+    ];
+    const [tutorialStep, setTutorialStep] = useState<number>(-1);
+    const [dialogOpen, setDialogOpen] = useState(false);
+    const startTutorial = () => {
+        setTutorialStep(0);
+        setShowInventory(true);
+        setDialogOpen(true);
+    };
+    const closeDialog = () => {
+        setDialogOpen(false);
+    };
+     const handleEquip = (item: Equipable) => {
+        console.log("onEquip callback:", item.id);
+        onEquipeItem(item);
+
+        // si estábamos en el paso 0, avanzamos al 1 y abrimos diálogo
+        if (tutorialStep === 0) {
+        setTutorialStep(1);
+        setDialogOpen(true);
+        }
+    };
+    const closeInventory = () => {
+        setShowInventory(false);
+        // si hemos terminado el paso 1, cerramos tutorial
+        if (tutorialStep === 1) {
+        setTutorialStep(-1);
+        }
+    };
     return ( 
         <>
-        <div className="panel-central z-50 gap-4">
+        <div className="panel-central z-0 gap-4">
             <button 
             className=" cursor-pointer bg-cyan-900 text-white rounded-2xl p-3 hover:bg-cyan-500 hover:font-bold"
             onClick={() =>onObtainItem(createItem(ListItems.consumable.pocion_salud),5)}
@@ -35,7 +67,16 @@ const Pruebas = ({onObtainItem,onEquipeItem,jugador, onUnEquipItem, onUseItem}: 
             className=" cursor-pointer bg-cyan-900 text-white rounded-2xl p-3 hover:bg-cyan-500 hover:font-bold"
             onClick={openInventory}
             >Iventario</button>
-            <InventoryModal open={showInventory} onClose={closeInventory} inventory={jugador.inventory} equipment={jugador.equipment as EquipmentSlots} onEquip={onEquipeItem} onUnequip={onUnEquipItem} onUse={onUseItem} />
+            <InventoryModal
+                open={showInventory}
+                onClose={closeInventory}
+                inventory={jugador.inventory}
+                equipment={jugador.equipment as EquipmentSlots}
+                onEquip={handleEquip}
+                onUnequip={onUnEquipItem}
+                onUse={onUseItem}
+                tutorialConfig={{lockedTab: "weapon", onItemClick: () => {}, onActionComplete: () => {} }}
+            />
         </div>
         </>
      );

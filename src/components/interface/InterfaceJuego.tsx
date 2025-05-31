@@ -19,7 +19,7 @@ const InterfaceJuego = () => {
   const [skills, setSkills] = useState<Skill[]>([]);
 
   /** Jugador */
-  const jugadorInicial = new Player("Fulanito",{str:110,agi:50,conc:40,def:70},3,[],getmisiones(),0,100,getItemsSlots());
+  const jugadorInicial = new Player("Fulanito",{str:110,agi:50,conc:40,def:70},3,[],getmisiones(),0,100,getItemsSlots(),0,{weapon: null, armor: null,accessory:null},5,100,5,50,1,{x:0,y:0},new Set(['0,0']),-1);
   
   /**Crear skills para probar */
   jugadorInicial.skills.push(new Skill("i.toString()","Furigana 0","Permite ver furigana en los kanjis","Ver Furigana","Pasiva",{agi: 0,conc: 0,def: 0,str: 0, level: 0},"active"));

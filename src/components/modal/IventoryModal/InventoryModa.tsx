@@ -19,7 +19,7 @@ export interface InventoryModalProps{
     tutorialConfig?:{
         lockedTab: TabKey;
         onItemClick: (item: InventorySlot) => void;
-        unActionComplete: () =>void;
+        onActionComplete: () =>void;
     }
 }
 const ALL_TABS: TabKey[] = [
@@ -67,10 +67,10 @@ const InventoryModal = ({open, onClose, inventory, equipment, onEquip, onUnequip
                     <InventoryItemGrid inventory={inventory} equipment={equipment} activeTab={activeTab} onSelectItem={selectItem} />
                     {selectedSlot && (
                         <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black/30"
-                         onClick={closeMenu} // si clicas fuera, cierra menú
+                         onClick={()=>{if(!locked) closeMenu();}} // si clicas fuera, cierra menú
                         >
-                            <div onClick={e => e.stopPropagation()}>
-                                <InventoryActionMenu slot={selectedSlot} activeTab={activeTab} onEquip={onEquip} onUnequip={onUnequip} onUse={onUse} onClose={closeMenu} />
+                            <div onClick={(e) => e.stopPropagation()}>
+                                <InventoryActionMenu slot={selectedSlot} activeTab={activeTab} onEquip={onEquip} onUnequip={onUnequip} onUse={onUse} onClose={closeMenu} locked={locked} />
                             </div>
                         </div>
                     )}

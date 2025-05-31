@@ -8,6 +8,9 @@ import { Item } from "../models/items/item";
 import { Equipable } from "../models/items/equipable";
 import { Consumable } from "../models/items/consumable";
 import { KeyItems } from "../models/items/keyitems";
+import { useState } from "react";
+import InventoryModal from "../modal/IventoryModal/InventoryModa";
+import { EquipmentSlots } from "../models/player/type";
 
 interface PanelUiProps{
     display: boolean;
@@ -19,6 +22,9 @@ interface PanelUiProps{
 }
 const PanelUi = ({display, jugador, onObtainItem, onEquipeItem, onUnEquipItem, onUseItem}: PanelUiProps) => {
     const equipmentModifiers = useEquipmentModifiers(jugador.equipment);
+    const [showInventory, setShowInventory] = useState(false);
+    const openInventory = () => setShowInventory(true);
+    const closeInventory = () => setShowInventory(false);
     return ( 
         <>
             <div className="color-panel-ui flex justify-center items-center">
@@ -40,8 +46,18 @@ const PanelUi = ({display, jugador, onObtainItem, onEquipeItem, onUnEquipItem, o
                     </>
                 )}
             </div>
-            <div className="color-panel-ui flex items-center">
-                {display && (<button className="cursor-pointer bg-amber-200 rounded-full p-2">Inventario</button>)}
+            <div className="color-panel-ui grid grid-cols-1 grid-rows-2 text-white gap-0">
+                {display && (<>
+                    <div className=" self-center">
+                        <p className="font-semibold">Gold: <span className="text-amber-300">{jugador.gold}</span></p>
+                    </div>
+                    <div className="mt-[-28px]">
+                    <button className="cursor-pointer bg-amber-200 rounded-full p-2 text-black place-self-start" onClick={openInventory}>
+                        Inventario</button>
+                        
+                    </div>
+                    </>)}
+                <InventoryModal open={showInventory} onClose={closeInventory} inventory={jugador.inventory} equipment={jugador.equipment as EquipmentSlots} onEquip={onEquipeItem} onUnequip={onUnEquipItem} onUse={onUseItem} />
             </div>
         </>
      );

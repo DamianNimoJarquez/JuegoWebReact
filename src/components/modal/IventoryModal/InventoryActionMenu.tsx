@@ -11,9 +11,10 @@ interface InventoryActionMenuProps{
     onUnequip: (item: Equipable)=>void;
     onUse: (item: Consumable)=>void;
     onClose: ()=>void;
+    locked: boolean;
 }
 //Menú de opciones
-const InventoryActionMenu = ({slot,activeTab,onEquip,onUnequip,onUse,onClose}: InventoryActionMenuProps) => {
+const InventoryActionMenu = ({slot,activeTab,onEquip,onUnequip,onUse,onClose,locked}: InventoryActionMenuProps) => {
     const item = slot.item ?? slot;
     
     //determinar opciones
@@ -46,7 +47,7 @@ const InventoryActionMenu = ({slot,activeTab,onEquip,onUnequip,onUse,onClose}: I
                     {isUsableTab &&(
                         <button className="botonOpcionesIventario bg-green-600" onClick={handleUse}>Usar {item.name}</button>
                     )}
-                    <button className="botonOpcionesIventario bg-gray-500" onClick={onClose}>Cancelar</button>
+                    {!locked && (<button className="botonOpcionesIventario bg-gray-500" onClick={onClose}>Cancelar</button>)}
                 </div>
             </div>
         </> 

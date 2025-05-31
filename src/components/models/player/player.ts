@@ -1,3 +1,4 @@
+import { Celdas } from "../celdas"
 import { Consumable } from "../items/consumable"
 import { Equipable } from "../items/equipable"
 import { Item } from "../items/item"
@@ -19,17 +20,19 @@ export class Player{
         public exp: number,
         public expLvlUp: number,
         public inventory: InventorySlot[],
-        public gold: number = 0,
+        public gold: number,
         public equipment: EquipmentSlots = {
             weapon: null,
             armor: null,
             accessory: null,
         },
-        public hp: number = 10,
-        public maxHp: number = 100,
-        public mp: number = 20,
-        public maxMp: number = 50,
-        public level: number = 1,
+        public hp: number,
+        public maxHp: number,
+        public mp: number,
+        public maxMp: number,
+        public level: number,
+        public position: Celdas,
+        public tutorialStep: number,
     ){}
 
     toggleSkills(id: string): Player{
@@ -40,7 +43,7 @@ export class Player{
             if(skill.state === 'inactive' && numSkillActive >= this.limiteSkillActivas) return skill;
             return new Skill(skill.id,skill.name, skill.description, skill.shortDesc, skill.type, skill.requirements, skill.state === 'active' ? 'inactive' : 'active');
         });
-        return new Player(this.name, {...this.atributos}, this.limiteSkillActivas,changedSkill,this.quests,this.exp,this.expLvlUp,this.inventory,this.gold,this.equipment,this.hp,this.maxHp,this.mp,this.maxMp,this.level)
+        return new Player(this.name, {...this.atributos}, this.limiteSkillActivas,changedSkill,this.quests,this.exp,this.expLvlUp,this.inventory,this.gold,this.equipment,this.hp,this.maxHp,this.mp,this.maxMp,this.level, this.position,this.tutorialStep);
     }
 
     unLockSkills(): Player{
@@ -51,7 +54,7 @@ export class Player{
                 newState = 'inactive';
             return new Skill(skill.id,skill.name, skill.description, skill.shortDesc, skill.type, skill.requirements, newState);
         });
-        return new Player(this.name, {...this.atributos}, this.limiteSkillActivas,changedSkill,this.quests,this.exp,this.expLvlUp,this.inventory)
+        return new Player(this.name, {...this.atributos}, this.limiteSkillActivas,changedSkill,this.quests,this.exp,this.expLvlUp,this.inventory,this.gold,this.equipment,this.hp,this.maxHp,this.mp,this.maxMp,this.level, this.position,this.tutorialStep)
     }
 
     private removeFromInventory(slots: InventorySlot[], itemId: string, qty: number): InventorySlot[]{
@@ -95,7 +98,15 @@ export class Player{
             newQuests,
             this.exp,
             this.expLvlUp,
-            newIventory);
+            newIventory,
+            this.gold,
+            this.equipment,
+            this.hp,
+            this.maxHp,
+            this.mp,
+            this.maxMp,
+            this.level, this.position,this.tutorialStep
+            );
     }
 
     public equipItem(item: Equipable): Player{
@@ -129,7 +140,7 @@ export class Player{
 
         return new Player(
             this.name,this.atributos,this.limiteSkillActivas,this.skills,this.quests,this.exp,
-            this.expLvlUp,newIventory,this.gold,newEquipament,this.hp,this.maxHp,this.mp,this.maxMp,this.level
+            this.expLvlUp,newIventory,this.gold,newEquipament,this.hp,this.maxHp,this.mp,this.maxMp,this.level, this.position,this.tutorialStep
         );
     }
 
@@ -149,26 +160,43 @@ export class Player{
         newEquipament[slot] = null;
         return new Player(
             this.name,this.atributos,this.limiteSkillActivas,this.skills,this.quests,this.exp,
-            this.expLvlUp,newIventory,this.gold,newEquipament,this.hp,this.maxHp,this.mp,this.maxMp,this.level
+            this.expLvlUp,newIventory,this.gold,newEquipament,this.hp,this.maxHp,this.mp,this.maxMp,this.level, this.position,this.tutorialStep
         );
     }
     public useItem(item: Consumable | KeyItems): Player{
         const newIventory = [...this.inventory];
         const idx = newIventory.findIndex(s => s.item.id == item.id);
+        let newHp = this.hp;
+        let newMp = this.mp;
         if(item.category=='consumable'){
             if(idx >=0 && --newIventory[idx].qty <= 0)
                 newIventory.splice(idx,1);
-            this.hp = Math.min(this.maxHp, this.hp + ((item as Consumable).hpRecovered || 0));
-            this.mp = Math.min(this.maxMp, this.mp + ((item as Consumable).mpRecovered || 0));
+            newHp = Math.min(this.maxHp, this.hp + ((item as Consumable).hpRecovered || 0));
+            newMp  = Math.min(this.maxMp, this.mp + ((item as Consumable).mpRecovered || 0));
         }
+
+         let updatedPlayer = new Player(
+            this.name,
+            { ...this.atributos },
+            this.limiteSkillActivas,
+            this.skills,
+            this.quests,
+            this.exp,
+            this.expLvlUp,
+            newIventory,
+            this.gold,
+            this.equipment,
+            newHp,
+            this.maxHp,
+            newMp,
+            this.maxMp,
+            this.level, this.position,this.tutorialStep
+        );
         if(item.action){
             item.usable=false;
-            return item.action(this);
+            return item.action(updatedPlayer);
         }
-        return new Player(
-            this.name,this.atributos,this.limiteSkillActivas,this.skills,this.quests,this.exp,
-            this.expLvlUp,newIventory,this.gold,this.equipment,this.hp,this.maxHp,this.mp,this.maxMp,this.level
-        );
+        return updatedPlayer;
     }
 
     public addSkill(skill: Skill): Player{
