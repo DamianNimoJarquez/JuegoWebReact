@@ -1,1 +1,0 @@
-# Pasando el juego a React con Typescript y Talwindcss
